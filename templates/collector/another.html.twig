@@ -1,0 +1,61 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{# Now this breaks stuff #}
+{% from 'stuff/_test.html.twig' import cavia %}
+
+{% block toolbar %}
+    {% set icon %}
+        {# this is the content displayed as
+         a panel in the toolbar #}
+
+        {# Especially here #}
+        <span class="sf-toolbar-value">{{ cavia('cavia') }}</span>
+    {% endset %}
+
+    {% set text %}
+        {# this is the content displayed when hovering the mouse over
+           the toolbar panel #}
+        <div class="sf-toolbar-info-piece">
+            <b>Method</b>
+            <span>{{ collector.method }}</span>
+        </div>
+
+        <div class="sf-toolbar-info-piece">
+            <b>Accepted content type</b>
+            <span>{{ collector.acceptableContentTypes|join(', ') }}</span>
+        </div>
+    {% endset %}
+
+    {# the 'link' value set to 'false' means that this panel doesn't
+       show a section in the web profiler #}
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: false }) }}
+{% endblock %}
+
+{% block menu %}
+    {# This left-hand menu appears when using the full-screen profiler. #}
+    <span class="label">
+        <span class="icon"><img src="..." alt=""/></span>
+        <strong>Cavia</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {# Optional, for showing the most details. #}
+    <h2>Acceptable Content Types</h2>
+    <table>
+        <tr>
+            <th>Content Type</th>
+        </tr>
+
+        {% for type in collector.acceptableContentTypes %}
+            <tr>
+                <td>{{ type }}</td>
+            </tr>
+        {% endfor %}
+
+        {# use the profiler_dump() function to render the contents of dumped objects #}
+        <tr>
+            {{ profiler_dump(collector.someObject) }}
+        </tr>
+    </table>
+{% endblock %}
