@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% from 'stuff/_test.html.twig' import cavia %}
+
 {% block body_id 'homepage' %}
 
 {#
@@ -23,6 +25,7 @@
                 <p>
                     {{ 'help.browse_app'|trans|raw }}
                 </p>
+                {{ cavia('asdasdasdasdasd') }}
                 <p>
                     <a class="btn btn-primary btn-lg" href="{{ path('blog_index') }}">
                         <i class="fa fa-users" aria-hidden="true"></i> {{ 'action.browse_app'|trans }}
